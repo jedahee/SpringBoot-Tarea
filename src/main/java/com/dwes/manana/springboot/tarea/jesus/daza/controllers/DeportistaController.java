@@ -43,4 +43,9 @@ public class DeportistaController {
 	public String deleteDeportista(@PathVariable Long id) {
 		return servicio.del(id);
 	}
+	
+	@RequestMapping(value = "/api/deportistas/{id}", method = RequestMethod.PUT, produces = "application/json")
+	public String updateDeportista(@RequestBody Deportista s) {
+		return servicio.edit(s);
+	}
 }

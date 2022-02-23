@@ -38,4 +38,22 @@ public class DeportistaService {
 		return "No se ha podido eliminar";
 	}
 	
+	public String edit(Deportista d) {
+		Long num = d.getId();
+
+		if (repositorio.findById(num).isPresent()) {
+			Deportista deportistaToUpdate = new Deportista();
+			deportistaToUpdate.setId(d.getId());
+			deportistaToUpdate.setNombre(d.getNombre());
+			deportistaToUpdate.setApellidos(d.getApellidos());
+			deportistaToUpdate.setDeporte(d.getDeporte());
+			deportistaToUpdate.setEdad(d.getEdad());
+			deportistaToUpdate.setGanancias(d.getGanancias());
+			deportistaToUpdate.setActivo(d.getActivo());
+			repositorio.save(deportistaToUpdate);
+			return "Deportista modificado";
+		}
+		return "Error al modificar el deportista";
+	}
+	
 }
