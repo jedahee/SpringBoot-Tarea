@@ -68,4 +68,9 @@ public class DeportistaController {
 	public List<Deportista> busquedaDeportePorGanancias(@PathVariable double ganancias) {
 		return servicio.findByGananciasLessThanEqual(ganancias);
 	}
+	
+	@RequestMapping(value = "/api/deportistas/{id}/inactivo", method = RequestMethod.GET, produces = "application/json")
+	public String ponerDeportistaInactivo(@PathVariable Long id) {
+		return servicio.ponerDeportistaInactivo(id);
+	}
 }

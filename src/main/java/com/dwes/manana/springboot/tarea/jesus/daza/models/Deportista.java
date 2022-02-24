@@ -97,4 +97,5 @@ public class Deportista {
 	public void setDeporte(String deporte) {
 		this.deporte = deporte;
 	}
+	
 }

@@ -71,5 +71,22 @@ public class DeportistaService {
 		return repositorio.findByGananciasLessThanEqual(ganancias);
 	}
 	
+	public String ponerDeportistaInactivo(Long id) {
+		if (repositorio.findById(id).orElse(null) != null) {
+			if (repositorio.findById(id).orElse(null).getActivo()) {
+				Deportista deport = repositorio.findById(id).orElse(null);
+				deport.setActivo(false);
+				repositorio.save(deport);
+				
+				return "El deportista se ha dado de baja";
+			} else {
+				return "El deportista ya esta dado de baja";
+			}
+		}
+		
+		return "Este deportista no existe";
+		
+	}
+	
 	
 }
