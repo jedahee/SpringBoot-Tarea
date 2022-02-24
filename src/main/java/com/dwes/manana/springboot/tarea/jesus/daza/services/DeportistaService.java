@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.dwes.manana.springboot.tarea.jesus.daza.models.Deportista;
 import com.dwes.manana.springboot.tarea.jesus.daza.repositories.DeportistaRepository;
@@ -38,12 +39,10 @@ public class DeportistaService {
 		return "No se ha podido eliminar";
 	}
 	
-	public String edit(Deportista d) {
-		Long num = d.getId();
-
-		if (repositorio.findById(num).isPresent()) {
+	public String edit(Deportista d, Long id) {
+		if (repositorio.findById(id).isPresent()) {
 			Deportista deportistaToUpdate = new Deportista();
-			deportistaToUpdate.setId(d.getId());
+			deportistaToUpdate.setId(id);
 			deportistaToUpdate.setNombre(d.getNombre());
 			deportistaToUpdate.setApellidos(d.getApellidos());
 			deportistaToUpdate.setDeporte(d.getDeporte());
@@ -55,5 +54,22 @@ public class DeportistaService {
 		}
 		return "Error al modificar el deportista";
 	}
+	
+	public List<Deportista> findByNameOrLastName(String nombre, String apellidos) {
+		return repositorio.findByNombreOrApellidos(nombre, apellidos);
+	}
+	
+	public List<Deportista> findByFirstnameLike(String deporte) {
+		return repositorio.findByDeporteLike(deporte);
+	}
+	
+	public List<Deportista> findByEdadBetween(int edadMin, int edadMax) {
+		return repositorio.findByEdadBetween(edadMin, edadMax);
+	}
+	
+	public List<Deportista> findByGananciasLessThanEqual(double ganancias) {
+		return repositorio.findByGananciasLessThanEqual(ganancias);
+	}
+	
 	
 }

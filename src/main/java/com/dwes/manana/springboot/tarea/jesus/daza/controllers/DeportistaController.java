@@ -45,7 +45,27 @@ public class DeportistaController {
 	}
 	
 	@RequestMapping(value = "/api/deportistas/{id}", method = RequestMethod.PUT, produces = "application/json")
-	public String updateDeportista(@RequestBody Deportista s) {
-		return servicio.edit(s);
+	public String updateDeportista(@RequestBody Deportista s, @PathVariable Long id) {
+		return servicio.edit(s, id);
+	}
+	
+	@RequestMapping(value = "/api/deportistas/busqueda/{cadena}", method = RequestMethod.GET, produces = "application/json")
+	public List<Deportista> busquedaDeportista(@PathVariable String cadena) {
+		return servicio.findByNameOrLastName(cadena, cadena);
+	}
+	
+	@RequestMapping(value = "/api/deportistas/deporte/{deporte}", method = RequestMethod.GET, produces = "application/json")
+	public List<Deportista> busquedaDeporte(@PathVariable String deporte) {
+		return servicio.findByFirstnameLike(deporte);
+	}
+	
+	@RequestMapping(value = "/api/deportistas/edad/{edadMinima}/{edadMaxima}", method = RequestMethod.GET, produces = "application/json")
+	public List<Deportista> busquedaDeportePorEdad(@PathVariable int edadMinima, @PathVariable int edadMaxima) {
+		return servicio.findByEdadBetween(edadMinima, edadMaxima);
+	}
+	
+	@RequestMapping(value = "/api/deportistas/ganancias/{ganancias}", method = RequestMethod.GET, produces = "application/json")
+	public List<Deportista> busquedaDeportePorGanancias(@PathVariable double ganancias) {
+		return servicio.findByGananciasLessThanEqual(ganancias);
 	}
 }
